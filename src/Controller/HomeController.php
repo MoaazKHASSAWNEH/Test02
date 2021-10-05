@@ -42,4 +42,26 @@ class HomeController extends AbstractController
             'controller_nam' => 'HomeController',
         ]); 
     }
+
+    /**
+     * @Route("/actualites", name="actualites")
+     */
+
+    public function actualites()
+    {
+        return $this->render('home/actualites.html.twig' , [
+            'controller_name' => 'HomeController' ,
+        ]); 
+    }
+
+    /**
+     * @Route("/galleries", name="galleries")
+     */
+
+    public function galleries()
+    {
+        return $this->render('home/galleries.html.twig' , [
+            'controller_name' => 'HomeController' ,
+        ]); 
+    }
 }
