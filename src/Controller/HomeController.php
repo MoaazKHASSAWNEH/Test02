@@ -24,7 +24,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController' ,
         ]);
     }
-
+    
     public function contact(): Response 
     {
         return $this->render('home/contact.html.twig', [
