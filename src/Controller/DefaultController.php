@@ -18,6 +18,51 @@ class DefaultController extends AbstractController {
             'controller_name' => 'DefaultController',
         ]);
     }
+
+    /**
+     * @Route("/testresponse/{id}", name="response")
+     */
+
+    public function response($id) 
+    {
+        //pour afficher un message (pas besoin de vue) 
+        return new Response("<h1>Bonjour: $id bienvenue</h1>");
+    }
+
+    /**
+     * @Route("/testrender/{id}/{age}", name="render")
+     */
+
+    public function testrender($id,$age)
+    {
+        //render a besoin toujours de vue !
+        return $this->render("default/index.html.twig" ,array(
+            'id'=>$id,
+            'age' => $age,
+        ));
+    }
+
+    /**
+     * @Route("/testredirection", name="redirection_home")
+     */
+
+    public function testredirection() 
+    {
+        // Il faut donner le nom de la route pour rederiger sur cette route 
+        // la rout dans cette examble est "/home"
+        
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/{route}", name="condition")
+     */
+
+    public function verifi($id)
+    {
+        
+    }
+
 }
 
 ?> 
