@@ -25,6 +25,36 @@ class ViewController extends AbstractController
            
         return $this->render($template, $params);
     }
+
+    /**
+     * @Route("/momo", name="momo")
+     */
+
+    public function momo()
+    {
+        $template = "view/momo.html.twig"; 
+        $params = [
+            "title" => "Momo",
+            "nom" => "KHASSAWNEH",
+            "prenom" => "Moaaz", 
+        ];
+        
+        return $this->render($template,$params); 
+    }
+
+    /**
+     * @Route("/stagiaire", name="liste_stagiaires")
+     */
+
+    public function liste_stagiaire() 
+    {
+        $stagiaires = ["Ange","Moaaz","Modou","Valery","Fabrice"]; 
+        $template = "view/liste_stagiaire.html.twig"; 
+        $params = ["title" => "Liste de stagiaires", 
+                   "stagiaires" => $stagiaires];
+                   
+        return $this->render($template,$params); 
+    }
 }
 
 
