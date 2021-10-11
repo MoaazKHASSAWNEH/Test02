@@ -54,14 +54,7 @@ class DefaultController extends AbstractController {
         return $this->redirectToRoute('home');
     }
 
-    /**
-     * @Route("/{route}", name="condition")
-     */
-
-    public function verifi($id)
-    {
-        
-    }
+    
 
 }
 
