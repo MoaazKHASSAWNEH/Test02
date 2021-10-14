@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Exo6
+{% endblock %}
+{% block style %}
+
+
+{% endblock %}
+{% block body %}
+<h1>Eso6</h1>
+
+<table style="border:2px white solid;width:100%;text-align:center;">
+    {% set matieres = ["","Analise","Algorithme","Programation","Recherche"] %}
+    {% set notes = ["Pierre"][10,8,10,10],
+                   ["Paul"][11,10,11,11],
+                   ["Jacques"][9,15,14,9],
+                   ["Delphine"][15,8,17,4] %}
+    {% set myenne = "0" %}
+
+    <tr>
+    {% for i in 0..5 %}
+        <td>{{  }}</td>
+    {% endblock %}
+    </tr>
+</table>
+
+{% endblock %}

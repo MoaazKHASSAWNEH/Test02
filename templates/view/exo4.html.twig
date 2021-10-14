@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Exo4
+{% endblock %}
+{% block body %}
+<h1>Exo4</h1>
+
+{% set x,y = "8","2" %}
+
+<p>{{ x }} +  {{ y }} = {{ x+y  }}  </p>
+<p>{{ x }} -  {{ y }} = {{ x-y  }}  </p>
+<p>{{ x }} /  {{ y }} = {{ x/y  }}  </p>
+<p>{{ x }} x  {{ y }} = {{ x*y  }}  </p>
+<p>{{ x }} ^ {{ y }} = {{ x**y  }}  </p>
+
+
+{% endblock %}

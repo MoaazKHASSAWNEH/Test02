@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    Operation 
+{% endblock %}
+{% block body %}
+<h1>Page d'operations</h1>
+<h2> VIEW SYMFONY </h2>
+<hr>
+
+<ul> 
+<h1> // I - Operation Arithmetique dans la vue </h1>
+
+    <div>
+        <h3> // 1 - Addition </h3>
+        Afficher le resultat du Calcul X + Y
+            {% set x = 125 %} 
+            {% set y = 555  %}
+            {% set Somme = x + y %}
+            <br>
+            {{ x }} + {{ y }} = {{ Somme }} <br>
+            Reponse = {{ Somme }}
+    </div>
+
+</ul>
+
+    <div>
+        <h3> // 2 - Soustraction </h3>
+        Afficher le resultat du Calcul X - Y
+            {% set x, y = '125', '555' %}
+            {% set Diff = x - y %}
+            <br>
+            {{ x }} - {{ y }} = {{ Diff}} <br>
+            Reponse = {{ Diff}}
+    </div>
+
+
+{% endblock %}

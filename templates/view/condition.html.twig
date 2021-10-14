@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    Condition
+{% endblock %}
+
+{% block body %}
+<h1>View de Conditions</h1>
+
+<h2> VIEW SYMFONY </h2>
+<hr>
+
+<ul> 
+<h1> // I - Conditions dans la vue </h1>
+
+        // if ... endif <br>
+        // if ... else ... endif <br>
+        // if ... elsif ... else ... endif <br>
+
+
+{% set Git, Uml, Symfony, java = '12', '15', '15', '10' %}
+
+            {% if Git > 10 %}
+                Votre Note en GIT : {{ Git }} <br>
+                Votre Mention = ACQUIS
+            {% endif %}
+
+
+    {% if Git > 15 %}
+        ACQUIS <br>
+        {% else %}
+             NON ACQUIS <br>
+    {% endif %}
+
+    Votre note en UML: {{ Uml }} <br>
+        {% if Uml > 14 %}
+             ACQUIS <br>
+            {% elseif Uml < 12 %}
+                EN COURS D'acquisistion <br>
+            {% else %}
+            NON Acquis
+        {% endif %}
+
+{% endblock %}
