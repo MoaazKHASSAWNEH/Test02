@@ -16,7 +16,7 @@ class MenuController extends AbstractController
 {
 
     /**
-     * @Route("/accueil", name="menu_accueil")
+     * @Route("/", name="menu_accueil")
      */
 
     public function accueil() 

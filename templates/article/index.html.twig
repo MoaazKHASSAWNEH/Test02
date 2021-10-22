@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Articles {% endblock %}
+
+{% block body %}
+{% include "menu_user.html.twig" %}
+<h1>Articles index</h1>
+<table>
+    <tr>
+        {# <th>ID</th> #}
+        <th>TITRE</th>
+        <th>RESUME</th>
+        {# <th>DATE</th> #}
+    </tr>
+    
+    {% for article in articles %}
+    <tr>
+        
+        {# <td> {{ article.id }} </td> #}
+        <td><a href="{{ path('article_id', {'id':article.id} ) }}">{{ article.titre }} </a></td>
+        <td> {{ article.resume }} </td>
+        {# <td> {{ article.date | date("d/m/Y") }} </td> #}
+        
+    </tr>
+    
+    {% endfor %}
+    
+</table>
+{% endblock %}

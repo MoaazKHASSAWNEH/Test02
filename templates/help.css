@@ -21,7 +21,14 @@
     border: 1px black solid;
     background-color: rosybrown;
     box-shadow: 2px 1px 2px 0 chocolate;
-    border-radius: 10px;
+    border-radius: 10px 20px;
     text-decoration: none;
-    transform: rotateZ(45deg);
+    transform: rotateX(-30deg);
+    color: white;
+    transition: 1s;
+}
+
+.nav::hover {
+    background-color: burlywood;
+    border: 2px;  
 }
