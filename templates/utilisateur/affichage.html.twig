@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ utilisateur.prenom }} {{ utilisateur.nom }} {% endblock %}
+
+{% block body %}
+<h1>Utilisateur {{ utilisateur.prenom }} {{ utilisateur.nom }}</h1>
+{{ dump(utilisateur) }}
+<h2>Prénom : {{ utilisateur.prenom }}</h2>
+<h2>Nom : {{ utilisateur.nom }} </h2>
+<h2>Date de naissance : {{ utilisateur.dateNaissance | date("d/m/Y") }} </h2>
+<h2>Login : {{ utilisateur.Login }}</h2>
+<h2>Mot de passe : {{ utilisateur.password }} </h2>
+<h2>E-mail : {{ utilisateur.email }}</h2>
+<h2>Adresse : {{ utilisateur.adresse }} </h2>
+<h2>Role : {{ utilisateur.role }} </h2>
+
+{% endblock %}

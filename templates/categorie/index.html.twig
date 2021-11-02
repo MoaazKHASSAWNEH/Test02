@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Categories {% endblock %}
+
+{% block body %}
+{% include "menu_user.html.twig" %}
+<h1>Categores index</h1>
+<table>
+    <tr>
+        {# <th>ID</th> #}
+        <th>TITRE</th>
+        {# <th>RESUME</th> #}
+    </tr>
+    
+    {% for categorie in categories %}
+    <tr>
+        
+        {# <td> {{ categorie.id }} </td> #}
+        <td><a href="{{ path('categorie_id', {'id':categorie.id} ) }}">{{ categorie.titre }} </a></td>
+        {# <td> {{ categorie.resume }} </td> #}
+        
+    </tr>
+    
+    {% endfor %}
+    
+</table>
+{% endblock %}

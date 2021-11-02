@@ -35,7 +35,7 @@ class Utilisateur
     /**
      * @ORM\Column(type="date")
      */
-    private $date_naissance;
+    private $dateNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -105,12 +105,12 @@ class Utilisateur
 
     public function getDateNaissance(): ?\DateTimeInterface
     {
-        return $this->date_naissance;
+        return $this->dateNaissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $date_naissance): self
+    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
     {
-        $this->date_naissance = $date_naissance;
+        $this->dateNaissance = $dateNaissance;
 
         return $this;
     }

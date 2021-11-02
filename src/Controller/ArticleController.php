@@ -60,14 +60,14 @@ class ArticleController extends AbstractController
     // }
 
      /**
-     * @Route("/{ id }", name="article_id",  methods={"GET"})
+     * @Route("/{id}", name="article_id",  methods={"GET"})
      */
 
-    public function affichage(Request $request, ArticleRepository $articlesRepository, EntityManager $manager, Article $articles) : Response 
+    public function affichage(Article $articles) : Response 
     {
-        return $this->render('article/nouveau.html.twig', [
+        return $this->render('article/affichage.html.twig', [
             'id' =>$articles->getId(),
-            "article" => $article
+            "articles" => $articles
         ]);
     }
 }

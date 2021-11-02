@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ categorie.titre }}
+{% endblock %}
+
+{% block body %}
+    <h1>Categorie {{ categorie.id }}</h1>
+    <p>Titre : {{ categorie.titre }}</p>
+    <p>Résumé : {{ categorie.resume }}</p>
+
+
+
+{% endblock %}
