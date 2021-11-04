@@ -25,9 +25,6 @@ class ArticleFixtures extends Fixture
                     
             $manager->persist($article);
         }
-        
-        
-
         $manager->flush();
     }
 }

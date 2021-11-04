@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Nouvel article {% endblock %}
+
+{% block body %}
+{% include "menu_user.html.twig" %} 
+<p><a href="{{ path('article_index') }}" style="display:block;background-color: green;width=80%;margin:10px auto;padding: 10px;text-align:center;text-decoration:none">Revenir à l'index des article</a></p>
+<h1> Nouvel article </h1>
+{{ dump(article) }}
+
+{% endblock %}
