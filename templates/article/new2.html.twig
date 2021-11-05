@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<h1>Formulair de l'article</h1>
 {{ form_start(formArticle) }}
 
 {{ form_start(formArticle) }}
@@ -11,9 +11,9 @@ Contenu: {{ form_widget(formArticle.contenu) }} <br>
 Image: {{ form_widget(formArticle.image) }} <br>
 Date Creation : {{ form_widget(formArticle.date) }} <br>
 
-      
-    {{ form_end(formArticle) }}
-  <button type="submit" class="btn btn-success">envoyer</button>
+<button type="submit" class="btn btn-success">envoyer</button>      
+{{ form_end(formArticle) }}
+  
 
 
 {% endblock %}

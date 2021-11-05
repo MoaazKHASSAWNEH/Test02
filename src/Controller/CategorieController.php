@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Form\CategorieType;
 use App\Repository\CategoreReposetory;
 
 use phpDocumentor\Reflection\Types\AbstractList;
@@ -12,7 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager; 
-use Doctrine\ORM\EntityManagerInterface; 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 
 /**
  * @Route("/categorie")
@@ -22,7 +24,7 @@ class CategorieController extends AbstractController
 {
 
     /**
-     * @Route("/", name="index_categorie")
+     * @Route("/", name="categorie_index")
      */
 
     public function index() : Response
@@ -38,6 +40,59 @@ class CategorieController extends AbstractController
 
         return $this->render($vue,$param); 
     }
+
+    /**
+     * @Route("/new", name="categorie_new", methods={"GET","POST"})
+     */
+
+    public function new(Request $request, EntityManagerInterface $manager) : Response
+    {
+        $categorie = new Categorie(); 
+        
+        $form = $this->createFormBuilder($categorie)
+            ->add("titre")
+            ->add("resume")
+        ->getForm();
+        
+        $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($categorie);
+            $manager->flush(); 
+
+            return $this->redirectToRoute("categorie_index");  
+        }
+
+        $vue = "categorie/new.html.twig"; 
+        $param = ["form" => $form->createView()]; 
+        return $this->render($vue,$param); 
+
+    }
+
+    /**
+     * @Route("/new2", name="categorie_new2")
+     */
+
+    public function newWithTpey(Request $request,EntityManagerInterface $manager)
+    {
+        $categorie = new Categorie();
+        $form = $this->createForm(CategorieType::class,$categorie);
+        $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($categorie);
+            $manager->flush(); 
+
+            return $this->redirectToRoute("categorie_index");  
+        }
+
+        $vue = "categorie/new.html.twig"; 
+        $param = ["form" => $form->createView()]; 
+        return $this->render($vue,$param);        
+    }
+
 
     /**
      * @Route("/{id}", name="categorie_id",  methods={"GET"})

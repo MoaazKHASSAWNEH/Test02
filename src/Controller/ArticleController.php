@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 /**
  * @Route("/article")
  */
@@ -91,6 +94,7 @@ class ArticleController extends AbstractController
     public function formArticle(Request $request, EntityManagerInterface $manager)
     {
         $article = new Article(); // Instanciation
+         
 
         // Creation de mon Formulaire
         $form = $this->createFormBuilder($article)
@@ -106,12 +110,16 @@ class ArticleController extends AbstractController
         // Analyse des Requetes & Traitement des information 
         $form->handleRequest($request);
 
-        $manager->persist($article);
-        $manager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {    
+            $manager->persist($article);
+            $manager->flush();
 
+            return $this->redirectToRoute('article_id', ["id"=>$article->getId()]);
+        }
+        
 
         // Redirection du Formulaire vers le TWIG pour l’affichage avec
-        $vue = 'articles/new2.html.twig';
+        $vue = 'article/new2.html.twig';
         $param = ['formArticle' => $form->createView()];
         return $this->render($vue, $param);
     }
@@ -123,7 +131,6 @@ class ArticleController extends AbstractController
     public function affichage(Article $articles): Response
     {
         return $this->render('article/affichage.html.twig', [
-            'id' => $articles->getId(),
             "articles" => $articles
         ]);
     }

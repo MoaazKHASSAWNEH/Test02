@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nouvelle categorie {% endblock %}
+
+{% block body %}
+<h1>Creation de nouvelle categorie</h1>
+
+{{ form_start(form) }}
+    Titre : {{ form_widget(form.titre) }}
+    Résumé : {{ form_widget(form.resume) }}
+
+    <button tyoe="submit">Envoyer</button>
+
+{{ form_end(form) }}
+{% endblock %}
