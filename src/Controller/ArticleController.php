@@ -144,7 +144,7 @@ class ArticleController extends AbstractController
             ->add('titre')
             ->add('resume')
             ->add('contenu')
-            ->add('date')
+            ->add('date',DateType::class)
             ->add('image')
 
             // Demande le résultat

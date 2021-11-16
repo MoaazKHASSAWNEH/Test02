@@ -41,40 +41,40 @@ class CategorieController extends AbstractController
         return $this->render($vue,$param); 
     }
 
+    // /**
+    //  * @Route("/new", name="categorie_new", methods={"GET","POST"})
+    //  */
+
+    // public function new(Request $request, EntityManagerInterface $manager) : Response
+    // {
+    //     $categorie = new Categorie(); 
+        
+    //     $form = $this->createFormBuilder($categorie)
+    //         ->add("titre")
+    //         ->add("resume")
+    //     ->getForm();
+        
+    //     $form->handleRequest($request); 
+
+    //     if ($form->isSubmitted() && $form->isValid())
+    //     {
+    //         $manager->persist($categorie);
+    //         $manager->flush(); 
+
+    //         return $this->redirectToRoute("categorie_index");  
+    //     }
+
+    //     $vue = "categorie/new.html.twig"; 
+    //     $param = ["form" => $form->createView()]; 
+    //     return $this->render($vue,$param); 
+
+    // }
+
     /**
-     * @Route("/new", name="categorie_new", methods={"GET","POST"})
+     * @Route("/new", name="categorie_new2")
      */
 
-    public function new(Request $request, EntityManagerInterface $manager) : Response
-    {
-        $categorie = new Categorie(); 
-        
-        $form = $this->createFormBuilder($categorie)
-            ->add("titre")
-            ->add("resume")
-        ->getForm();
-        
-        $form->handleRequest($request); 
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($categorie);
-            $manager->flush(); 
-
-            return $this->redirectToRoute("categorie_index");  
-        }
-
-        $vue = "categorie/new.html.twig"; 
-        $param = ["form" => $form->createView()]; 
-        return $this->render($vue,$param); 
-
-    }
-
-    /**
-     * @Route("/new2", name="categorie_new2")
-     */
-
-    public function newWithTpey(Request $request,EntityManagerInterface $manager)
+    public function newWithType(Request $request,EntityManagerInterface $manager)
     {
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class,$categorie);
@@ -136,6 +136,5 @@ class CategorieController extends AbstractController
         $manager->remove($categorie);
         $manager->flush();
         return $this->redirectToRoute("categorie_index");    
-
     }
 }
