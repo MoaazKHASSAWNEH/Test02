@@ -94,8 +94,7 @@ class ArticleController extends AbstractController
     public function formArticle(Request $request, EntityManagerInterface $manager)
     {
         $article = new Article(); // Instanciation
-         
-
+        
         // Creation de mon Formulaire
         $form = $this->createFormBuilder($article)
             ->add('titre')
@@ -114,7 +113,7 @@ class ArticleController extends AbstractController
             $manager->persist($article);
             $manager->flush();
 
-            return $this->redirectToRoute('article_id', ["id"=>$article->getId()]);
+            return $this->redirectToRoute('article_index');
         }
         
 
@@ -134,4 +133,50 @@ class ArticleController extends AbstractController
             "articles" => $articles
         ]);
     }
+
+    /**
+     * @Route("/{id}/edit", name="article_edit")
+     */
+
+    public function edit(Request $request,EntityManagerInterface $manager,Article $article) :Response
+    {
+        $form = $this->createFormBuilder($article)
+            ->add('titre')
+            ->add('resume')
+            ->add('contenu')
+            ->add('date')
+            ->add('image')
+
+            // Demande le résultat
+            ->getForm();
+
+        // Analyse des Requetes & Traitement des information 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {    
+            // $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('article_index');
+        }
+        
+
+        // Redirection du Formulaire vers le TWIG pour l’affichage avec
+        $vue = 'article/new2.html.twig';
+        $param = ['formArticle' => $form->createView()];
+        return $this->render($vue, $param);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="article_delete")
+     */
+
+    public function delete(Request $request,EntityManagerInterface $manager,Article $article) : Response
+    {
+        $manager->remove($article); 
+        $manager->flush(); 
+
+        return $this->redirectToRoute("article_index"); 
+    }
+
 }

@@ -1,42 +1,4 @@
 
-{% block style %}
-<style>
-
-.nav {
-    width: 90%;
-    padding: 10px;
-    margin: 0 auto; 
-}
-
-.links-box {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center; 
-    background-color: burlywood;
-    padding: 5px;
-    list-style: none;
-}
-
-.link-nav {
-    display: block;
-    margin: 5px;
-    padding: 4px 16px;
-    border: 1px black solid;
-    background-color: rosybrown;
-    box-shadow: 2px 1px 2px 0 chocolate;
-    border-radius: 10px 20px;
-    text-decoration: none;
-    transform: rotateX(-30deg);
-    color: white;
-    transition: 1s;
-}
-
-</style>
-
-
-{% endblock %}
-
 <nav class="nav">
 <ul class="links-box">
 <li><a class="link-nav" href="{{ path('menu_accueil')}}">Accueil</a></li>

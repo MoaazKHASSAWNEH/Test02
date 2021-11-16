@@ -101,8 +101,41 @@ class CategorieController extends AbstractController
     public function affichage(Categorie $categorie) : Response 
     {
         return $this->render('categorie/affichage.html.twig', [
-            'id' =>$categorie->getId(),
             "categorie" => $categorie
         ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="categorie_edit")
+     */
+
+    public function edit(EntityManagerInterface $manager, Request $request, Categorie $categorie) : Response
+    {
+        $form = $this->createForm(CategorieType::class,$categorie); 
+        $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            // $manager->persist($categorie);
+            $manager->flush(); 
+
+            return $this->redirectToRoute("categorie_index");  
+        }
+
+        $vue = "categorie/new.html.twig"; 
+        $param = ["form" => $form->createView()]; 
+        return $this->render($vue,$param);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="categorie_delete")
+     */
+
+    public function delete(Request $request,Categorie $categorie,EntityManagerInterface $manager) : Response
+    {
+        $manager->remove($categorie);
+        $manager->flush();
+        return $this->redirectToRoute("categorie_index");    
+
     }
 }

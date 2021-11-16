@@ -1,23 +1,37 @@
 {% extends "base.html.twig" %}
 
-{% block title %} Utilisateurs {% endblock %}
+{% block title %}
+	Utilisateurs
+{% endblock %}
+
 
 {% block body %}
-{% include "menu_user.html.twig" %}
-<h1>Utilisateur index</h1>
-<table>
-    <tr>
-        <th>Utilisateur</th>
-        <th>Role</th>
-    </tr>
+	{% include "menu_user.html.twig" %}
+	<h1>Utilisateur index</h1>
+	<table>
+		<tr>
+			<th>Utilisateur</th>
+			<th>Role</th>
+			<th></th>
+			<th></th>
+		</tr>
 
-    {% for utilisateur in utilisateurs %}
-        <tr>
-            <td><a href="{{ path('utilisateur_id', {'id':utilisateur.id}) }}">{{ utilisateur.prenom }} {{ utilisateur.nom }}</a></td>
-            <td>{{ utilisateur.role }}</td>
-        </tr>
-    {% endfor %}
-</table>
+		{% for utilisateur in utilisateurs %}
+			<tr>
+				<td>
+					<a href="{{ path('utilisateur_id', {'id':utilisateur.id}) }}">{{ utilisateur.prenom }}
+						{{ utilisateur.nom }}</a>
+				</td>
+				<td>{{ utilisateur.role }}</td>
+				<td>
+					<a href="{{ path('utilisateur_edit',{'id':utilisateur.id} ) }}">Modifier</a>
+				</td>
+				<td>
+					<a id="Del" href="{{ path('utilisateur_delete',{'id':utilisateur.id} ) }}">Supprimer</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
 
 
 {% endblock %}

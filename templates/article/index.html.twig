@@ -11,6 +11,8 @@
         {# <th>ID</th> #}
         <th>TITRE</th>
         <th>RESUME</th>
+        <th><th>
+        <th><th>
         {# <th>DATE</th> #}
     </tr>
     
@@ -20,6 +22,8 @@
         {# <td> {{ article.id }} </td> #}
         <td><a href="{{ path('article_id', {'id':article.id} ) }}">{{ article.titre }} </a></td>
         <td> {{ article.resume }} </td>
+        <td><a href="{{ path('article_edit', {'id':article.id} ) }}">Modifier</a></td>
+        <td><a href="{{ path('article_delete', {'id':article.id} ) }}">Supprimer</a></td>
         {# <td> {{ article.date | date("d/m/Y") }} </td> #}
         
     </tr>

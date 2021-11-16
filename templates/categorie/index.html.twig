@@ -9,6 +9,8 @@
     <tr>
         {# <th>ID</th> #}
         <th>TITRE</th>
+        <th></th>
+        <th></th>
         {# <th>RESUME</th> #}
     </tr>
     
@@ -17,6 +19,8 @@
         
         {# <td> {{ categorie.id }} </td> #}
         <td><a href="{{ path('categorie_id', {'id':categorie.id} ) }}">{{ categorie.titre }} </a></td>
+        <td><a href="{{ path('categorie_edit', {'id':categorie.id} ) }}">Modifier</a></td>
+        <td><a href="{{ path('categorie_delete', {'id':categorie.id} ) }}">Supprimer</a></td>
         {# <td> {{ categorie.resume }} </td> #}
         
     </tr>

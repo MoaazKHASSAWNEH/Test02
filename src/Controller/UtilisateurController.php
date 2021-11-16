@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilder;
@@ -111,5 +112,37 @@ class UtilisateurController extends AbstractController
         $param = ["utilisateur" => $utilisateur];
 
         return $this->render($vue, $param);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="utilisateur_edit")
+     */
+
+    public function edit(Request $request, EntityManagerInterface $manager, Utilisateur $u) : Response
+    {
+        $form = $this->createForm(UtilisateurType::class, $u); 
+        $form->handleRequest($request); 
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $manager->persist($u); 
+            $manager->flush();
+            return $this->redirectToRoute("utilisateur_index"); 
+        }
+
+        $vue = "utilisateur/new.html.twig"; 
+        $param = ["form" => $form->createView()]; 
+        return $this->render($vue,$param);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="utilisateur_delete")
+     */
+
+    public function delete(Request $request, Utilisateur $u, EntityManagerInterface $manager) : Response
+    {
+        $manager->remove($u); 
+        $manager->flush(); 
+
+        return $this->redirectToRoute("utilisateur_index");
     }
 }
