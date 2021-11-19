@@ -8,6 +8,13 @@
     <h1>Categorie {{ categorie.id }}</h1>
     <p>Titre : {{ categorie.titre }}</p>
     <p>Résumé : {{ categorie.resume }}</p>
+    <h2>Liste d'article pour cette categorie</h2>
+    <ul>
+        {% for article in categorie.articles %}
+        <li><a href="{{ path('article_id', {'id':article.id})}}">{{ article.titre }} </a></li>
+        {% else %}
+            <li>Pas d'article</li>
+        {% endfor %}
 
 
 

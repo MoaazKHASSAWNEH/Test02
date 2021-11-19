@@ -16,7 +16,7 @@ class CategorieType extends AbstractType
         $builder
             ->add('titre',
             TextType::class,[
-                "label" => "Titre_1",
+                "label" => "Titre",
                 "required" => true
             ])
             ->add('resume',TextType::class)

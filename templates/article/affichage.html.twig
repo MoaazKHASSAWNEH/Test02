@@ -8,6 +8,7 @@
     <h1>Article {{ articles.id }}</h1>
     <p>Titre : {{ articles.titre }}</p>
     <p>Contenu : {{ articles.contenu }}</p>
+    <p>Categorie : <a href="{{ path('categorie_id', {'id':articles.categorie.id})}}">{{ articles.categorie.titre}}</a></p>
 
 
 

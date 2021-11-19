@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
@@ -19,6 +20,12 @@ class Utilisateur
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 50,
+     *      minMessage = "Yugo ça fonctionne bien",
+     *      maxMessage = "Yugo n'a jamais raison"
+     * )
      */
     private $nom;
 
