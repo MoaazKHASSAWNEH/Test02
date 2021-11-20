@@ -11,6 +11,16 @@ body {
     width: 100%;
 }
 
+.new_link {
+    display:block;
+    background-color: green;
+    width: 80%;
+    margin:10px auto;
+    padding: 10px;
+    text-align:center;
+    text-decoration:none
+}
+
 /* 
 -----------------------------------------
 C'est pour le menu nav 

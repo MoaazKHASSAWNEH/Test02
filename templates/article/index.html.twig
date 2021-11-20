@@ -5,7 +5,8 @@
 {% block body %}
 {% include "menu_user.html.twig" %}
 <h1>Articles index</h1>
-<p><a href="{{ path('article_nouvelarticle') }}" style="display:block;background-color: green;width=80%;margin:10px auto;padding: 10px;text-align:center;text-decoration:none">Créer un nouvel article</a></p>
+{# <p><a href="{{ path('article_nouvelarticle') }}" class="new_link">Créer un nouvel article</a></p> #}
+<p>{{ make_link('/article/nouvelarticle','Nouvel article','new_link') }}</p>
 <table>
     <tr>
         {# <th>ID</th> #}
