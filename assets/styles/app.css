@@ -1,5 +1,63 @@
-body {
-    background-color: lightgray;
-    display: none;
+.* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+
+
+body {
+    background-color: lightgray;
+    width: 100%;
+}
+
+/* 
+-----------------------------------------
+C'est pour le menu nav 
+*/
+.nav {
+    width: 90%;
+    padding: 10px;
+    margin: 0 auto; 
+}
+
+.links-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; 
+    background-color: burlywood;
+    padding: 5px;
+    list-style: none;
+}
+
+.link-nav {
+    display: block;
+    margin: 5px;
+    padding: 4px 16px;
+    border: 1px black solid;
+    background-color: rosybrown;
+    box-shadow: 2px 1px 2px 0 chocolate;
+    border-radius: 10px 20px;
+    text-decoration: none;
+    transform: rotateX(-30deg);
+    color: white;
+    transition: 1s;
+}
+/*
+---------------------------------------------------------------------
+C'est le style de table 
+*/
+table {
+    width: 80%;
+    text-align: center;
+    margin: 10px auto;
+    border: 2px red solid;
+    padding: 10px;
+    border-collapse: collapse ;
+}
+
+th,td {
+    padding: 5px;
+    border: 1px solid yellow;
+}
