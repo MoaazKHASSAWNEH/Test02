@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Auteurs {% endblock %}
+
+{% block body %}
+{% include "menu_user.html.twig" %}
+<h1>Auteurs index</h1>
+<table>
+    <tr>
+        {# <th>ID</th> #}
+        <th>Auteur</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+        {# <th>RESUME</th> #}
+    </tr>
+    
+    {% for auteur in auteurs %}
+    <tr>
+        
+        {# <td> {{ auteur.id }} </td> #}
+        <td><a href="{{ path('auteur_id', {'id':auteur.id} ) }}">{{ auteur.nom }} {{ auteur.prenom }} </a></td>
+        <td>{{ auteur.email }}</td>
+        <td><a href="{{ path('auteur_edit', {'id':auteur.id} ) }}">Modifier</a></td>
+        <td><a href="{{ path('auteur_delete', {'id':auteur.id} ) }}">Supprimer</a></td>
+        {# <td> {{ auteur.resume }} </td> #}
+        
+    </tr>
+    
+    {% endfor %}
+    
+</table>
+{% endblock %}

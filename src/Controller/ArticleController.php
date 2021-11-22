@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\CategorieType;
 use App\Repository\ArticleRepository;
 
 use phpDocumentor\Reflection\Types\AbstractList;
@@ -102,6 +103,7 @@ class ArticleController extends AbstractController
             ->add('contenu')
             ->add('date')
             ->add('image')
+            ->add('categorie',CategorieType::class)
 
             // Demande le résultat
             ->getForm();
@@ -146,6 +148,7 @@ class ArticleController extends AbstractController
             ->add('contenu')
             ->add('date',DateType::class)
             ->add('image')
+            ->add('categorie',CategorieType::class)
 
             // Demande le résultat
             ->getForm();
