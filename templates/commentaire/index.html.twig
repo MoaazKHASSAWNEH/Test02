@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %} commentaires {% endblock %}
+
+{% block body %}
+{% include "menu_user.html.twig" %}
+<h1>Commentaire index</h1>
+<table>
+    <tr>
+        {# <th>ID</th> #}
+        <th>Auteur</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+        {# <th>RESUME</th> #}
+    </tr>
+    
+    {% for commentaire in commentaires %}
+    <tr>
+        
+        {# <td> {{ commentaire.id }} </td> #}
+        <td><a href="{{ path('commentaire_id', {'id':commentaire.id} ) }}">{{ commentaire.auteur }}</td> 
+        <td>{{ commentaire.email }}</td>
+        <td>{{ commentaire.date | date("d/m/Y") }}</td>
+        <td><a href="{{ path('commentaire_edit', {'id':commentaire.id} ) }}">Modifier</a></td>
+        <td><a href="{{ path('commentaire_delete', {'id':commentaire.id} ) }}">Supprimer</a></td>
+        {# <td> {{ commentaire.resume }} </td> #}
+        
+    </tr>
+    
+    {% endfor %}
+    
+</table>
+{% endblock %}

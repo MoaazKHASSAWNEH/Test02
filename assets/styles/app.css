@@ -2,12 +2,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: black;
+}
+
+a {
+    color: black;
 }
 
 
-
 body {
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255);
+    color:black;
     width: 100%;
 }
 
@@ -70,4 +75,33 @@ table {
 th,td {
     padding: 5px;
     border: 1px solid yellow;
+}
+
+td, td > a {
+    background-color: rgb(65, 16, 143);
+    color: wheat;
+}
+
+th {
+    font-weight: bold;
+}
+
+/* le style de commentaire */
+.commentaire {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    margin: 2rem auto;
+    padding: 1rem;
+    border-radius: 50px;
+    border: 2px blue solid;
+    background-color: blue;
+    color: white;
+}
+
+.tete,.info,.contenu {
+    width: 90%;
+    margin: .5rem auto;
+    text-align: center;
 }

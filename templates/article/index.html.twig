@@ -12,6 +12,7 @@
         {# <th>ID</th> #}
         <th>TITRE</th>
         <th>Catégorie</th>
+        <th>Auteur</th>
         <th>RESUME</th>
         <th><th>
         <th><th>
@@ -24,6 +25,7 @@
         {# <td> {{ article.id }} </td> #}
         <td><a href="{{ path('article_id', {'id':article.id} ) }}">{{ article.titre }} </a></td>
         <td><a href="{{ path ('categorie_id', {'id':article.categorie.id})}}">{{article.categorie.titre }}</a></td>
+        <td><a href="{{ path ('auteur_id', {'id':article.auteur.id})}}">{{ article.auteur.nom }} {{ article.auteur.prenom }}</a></td>
         <td> {{ article.resume }} </td>
         <td><a href="{{ path('article_edit', {'id':article.id} ) }}">Modifier</a></td>
         <td><a href="{{ path('article_delete', {'id':article.id} ) }}">Supprimer</a></td>

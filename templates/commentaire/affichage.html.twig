@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+   Commentaire de {{ commentaire.auteur  }}
+{% endblock %}
+
+{% block body %}
+    <h1>commentaire {{ commentaire.id }}</h1>
+    <p>Auteur : {{ commentaire.auteur }}</p>
+    <p>E-mail : {{ commentaire.email }}</p>
+    <p>Date : {{ commentaire.date | date("d/m/Y") }}</p>
+    <p>Contenu : {{ commentaire.Contenu }} </p>
+    
+    
+{% endblock %}

@@ -9,5 +9,10 @@
     <p>Nom : {{ auteur.nom }}</p>
     <p>Prenom : {{ auteur.prenom }}</p>
     <p>E-mail : {{ auteur.email }}</p>
-    
+
+    <h2>Les articles créés par cet auteur</h2>
+    <ul>
+    {% for article in auteur.articles %}
+        <li><a href="{{ path('article_id', {'id':article.id})}}">{{ article.titre }}</a></li>
+    {% endfor %}
 {% endblock %}

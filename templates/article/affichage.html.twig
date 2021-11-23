@@ -9,7 +9,20 @@
     <p>Titre : {{ articles.titre }}</p>
     <p>Contenu : {{ articles.contenu }}</p>
     <p>Categorie : <a href="{{ path('categorie_id', {'id':articles.categorie.id})}}">{{ articles.categorie.titre}}</a></p>
+    <p>Auteur : <a href="{{ path('auteur_id', {'id':articles.auteur.id})}}">{{ articles.auteur.nom }} {{ articles.auteur.prenom }}</a></p>
 
+    <h1>Ajouter un commentaire</h1>
+
+    {{ form(form_commentaire) }}
+
+    <h1>Commentaires</h1>
+    {% for commentaire in articles.Commentaires %}
+        <div class="commentaire">
+            <p class="tete">Publié le {{ commentaire.date | date("d/m/Y") }} à {{ commentaire.date | date("h:i") }} par : {{ commentaire.auteur }}</p>
+            <p class="info">E-mail : {{ commentaire.email }}</p>
+            <p class="contenu">Contenu : {{ commentaire.contenu }}</p>
+        </div>
+    {% endfor %}
 
 
 {% endblock %}
