@@ -159,18 +159,8 @@ class ArticleController extends AbstractController
 
     public function edit(Request $request,EntityManagerInterface $manager,Article $article) :Response
     {
-        $form = $this->createFormBuilder($article)
-            ->add('titre')
-            ->add('categorie',CategorieType::class)
-            ->add('auteur',Auteur::class)
-            ->add('resume')
-            ->add('contenu')
-            ->add('date',DateType::class)
-            ->add('image')
+        $form = $this->createForm(ArticleType::class, $article); 
             
-
-            // Demande le résultat
-            ->getForm();
 
         // Analyse des Requetes & Traitement des information 
         $form->handleRequest($request);
@@ -185,7 +175,7 @@ class ArticleController extends AbstractController
 
         // Redirection du Formulaire vers le TWIG pour l’affichage avec
         $vue = 'article/new2.html.twig';
-        $param = ['formArticle' => $form->createView()];
+        $param = ['form' => $form->createView()];
         return $this->render($vue, $param);
     }
 
