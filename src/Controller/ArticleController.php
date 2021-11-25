@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
 use App\Entity\Article;
+use App\Form\AuteurType;
+use App\Entity\Categorie;
 use App\Entity\Commentaire;
+
 use App\Form\CategorieType;
 use App\Form\CommentaireType;
-
 use Doctrine\ORM\EntityManager;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,9 +18,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use phpDocumentor\Reflection\Types\AbstractList;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -100,21 +106,13 @@ class ArticleController extends AbstractController
         $article = new Article(); // Instanciation
         
         // Creation de mon Formulaire
-        $form = $this->createFormBuilder($article)
-            ->add('titre')
-            ->add('resume')
-            ->add('contenu')
-            ->add('date')
-            ->add('image')
-            ->add('categorie',CategorieType::class)
-
-            // Demande le résultat
-            ->getForm();
+        $form = $this->createForm(FormType::class,$article);
 
         // Analyse des Requetes & Traitement des information 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {    
+            $article->setDate(new \DateTime()); 
             $manager->persist($article);
             $manager->flush();
 
@@ -124,7 +122,7 @@ class ArticleController extends AbstractController
 
         // Redirection du Formulaire vers le TWIG pour l’affichage avec
         $vue = 'article/new2.html.twig';
-        $param = ['formArticle' => $form->createView()];
+        $param = ['form' => $form->createView()];
         return $this->render($vue, $param);
     }
 
@@ -162,11 +160,13 @@ class ArticleController extends AbstractController
     {
         $form = $this->createFormBuilder($article)
             ->add('titre')
+            ->add('categorie',CategorieType::class)
+            ->add('auteur',Auteur::class)
             ->add('resume')
             ->add('contenu')
             ->add('date',DateType::class)
             ->add('image')
-            ->add('categorie',CategorieType::class)
+            
 
             // Demande le résultat
             ->getForm();
