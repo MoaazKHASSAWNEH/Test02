@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManager;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Egulias\EmailValidator\Parser\Comment;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,8 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request as BrowserKitRequest;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 /**
  * @Route("/article")
@@ -38,13 +41,15 @@ class ArticleController extends AbstractController
      * @Route("/", name="article_index")
      */
 
-    public function index() : Response
+    public function index(Request $request, PaginatorInterface $paginator) 
     {
         $repo = $this->getDoctrine()
             ->getRepository(Article::class);
         
-        $articles = $repo->findAll();
+        $donnees = $repo->findAll();
         
+        $articles = $paginator->paginate($donnees,$request->query->getInt("page",1),10); 
+
 
         $path = "article/index.html.twig";
         $param = [
