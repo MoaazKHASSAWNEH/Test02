@@ -3,12 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Form\AuteurType;
 use App\Entity\Categorie;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleType extends AbstractType
@@ -21,7 +22,7 @@ class ArticleType extends AbstractType
                 "class" => Categorie::class, 
                 "choice_label" => "titre",
             ])
-            ->add('auteur')
+            ->add('auteur',AuteurType::class)
             ->add('contenu',TextareaType::class)
             ->add('resume',TextType::class)
             ->add('image',TextType::class)

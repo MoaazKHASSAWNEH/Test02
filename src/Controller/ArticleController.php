@@ -6,8 +6,9 @@ use App\Entity\Auteur;
 use App\Entity\Article;
 use App\Form\AuteurType;
 use App\Entity\Categorie;
-use App\Entity\Commentaire;
+use App\Form\ArticleType;
 
+use App\Entity\Commentaire;
 use App\Form\CategorieType;
 use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManager;
@@ -106,7 +107,7 @@ class ArticleController extends AbstractController
         $article = new Article(); // Instanciation
         
         // Creation de mon Formulaire
-        $form = $this->createForm(FormType::class,$article);
+        $form = $this->createForm(ArticleType::class,$article);
 
         // Analyse des Requetes & Traitement des information 
         $form->handleRequest($request);
