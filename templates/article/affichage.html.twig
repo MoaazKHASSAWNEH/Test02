@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Article {{ articles.id }}</h1>
-    <p>Titre : {{ articles.titre }}</p>
+<div class="article">
+    <h1 class="titre">{{ articles.titre }}</h1>
     <p>Contenu : {{ articles.contenu }}</p>
     <p>Categorie : <a href="{{ path('categorie_id', {'id':articles.categorie.id})}}">{{ articles.categorie.titre}}</a></p>
     <p>Auteur : <a href="{{ path('auteur_id', {'id':articles.auteur.id})}}">{{ articles.auteur.nom }} {{ articles.auteur.prenom }}</a></p>
-
+</div>
     <h1>Ajouter un commentaire</h1>
 
     {{ form(form_commentaire) }}

@@ -105,3 +105,26 @@ th {
     margin: .5rem auto;
     text-align: center;
 }
+
+.pagination {
+    display: flex;
+    width: 30%;
+    margin: 1rem auto;
+    font-size: 1rem;
+    justify-content: space-between;
+    padding: .5rem;
+}
+
+.pagination span {
+    display: block;
+    padding: .2rem;
+    border: 1px yellow solid;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    min-width: 7%;
+}
+
+
