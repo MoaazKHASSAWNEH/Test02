@@ -25,7 +25,6 @@ class UtilisateurType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('adresse')
             ->add('email')
-            ->add('role')
             ->add('Envoyer', SubmitType::class)
         ;
     }

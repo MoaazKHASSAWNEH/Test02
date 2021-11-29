@@ -12,6 +12,10 @@
 <h2>Mot de passe : {{ utilisateur.password }} </h2>
 <h2>E-mail : {{ utilisateur.email }}</h2>
 <h2>Adresse : {{ utilisateur.adresse }} </h2>
-<h2>Role : {{ utilisateur.role }} </h2>
+<h2>Role :
+    {% for role in utilisateur.roles %}
+				{{ role }}, 
+	{% endfor %}
+</h2>
 
 {% endblock %}

@@ -22,7 +22,12 @@
 					<a href="{{ path('utilisateur_id', {'id':utilisateur.id}) }}">{{ utilisateur.prenom }}
 						{{ utilisateur.nom }}</a>
 				</td>
-				<td>{{ utilisateur.role }}</td>
+				<td>
+					{% for role in utilisateur.roles %}
+						{{ role }}, 
+					{% endfor %}
+
+				</td>
 				<td>
 					<a href="{{ path('utilisateur_edit',{'id':utilisateur.id} ) }}">Modifier</a>
 				</td>
