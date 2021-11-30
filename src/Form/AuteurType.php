@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Auteur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,6 +28,10 @@ class AuteurType extends AbstractType
             ->add('email',EmailType::class,[
                 'label' => "E-mail",
                 'required' => true
+            ])
+            ->add("password", PasswordType::class,[
+                "label" => "Mot de pass",
+                "required" => true,
             ])
             ->add('Envoyer',SubmitType::class)
         ;

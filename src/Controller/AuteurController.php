@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager; 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/auteur")
@@ -44,14 +45,18 @@ class AuteurController extends AbstractController
      * @Route("/new", name="auteur_new")
      */
 
-    public function newWithType(Request $request,EntityManagerInterface $manager)
+    public function newWithType(Request $request,EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $auteur = new Auteur();
         $form = $this->createForm(AuteurType::class,$auteur);
         $form->handleRequest($request); 
+         
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $passwordHashed = $encoder->encodePassword($auteur,$auteur->getPassword()); 
+            $auteur->setPassword($passwordHashed); 
+
             $manager->persist($auteur);
             $manager->flush(); 
 
