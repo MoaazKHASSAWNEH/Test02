@@ -121,13 +121,14 @@ class UtilisateurController extends AbstractController
      * @Route("/{id}/edit", name="utilisateur_edit")
      */
 
-    public function edit(Request $request, EntityManagerInterface $manager, Utilisateur $u) : Response
+    public function edit(Request $request, EntityManagerInterface $manager, Utilisateur $u, UserPasswordEncoderInterface $encoder) : Response
     {
-        $form = $this->createForm(UtilisateurType::class, $u); 
+        $form = $this->createForm(UtilisateurType::class, $u);
         $form->handleRequest($request); 
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $manager->persist($u); 
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $passwordHashed = $encoder->encodePassword($u,$u->getPassword()); 
+            $u->setPassword($passwordHashed);
             $manager->flush();
             return $this->redirectToRoute("utilisateur_index"); 
         }

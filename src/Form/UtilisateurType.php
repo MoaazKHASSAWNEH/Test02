@@ -22,7 +22,9 @@ class UtilisateurType extends AbstractType
             ->add('photo')
             ->add('dateNaissance', DateType::class)
             ->add('login')
-            ->add('password', PasswordType::class)
+            ->add('password', PasswordType::class,[
+                "required" => true,
+            ])
             ->add('adresse')
             ->add('email')
             ->add('Envoyer', SubmitType::class)
