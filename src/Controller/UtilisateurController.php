@@ -101,7 +101,9 @@ class UtilisateurController extends AbstractController
         }
 
         $vue = "utilisateur/new.html.twig"; 
-        $param = ["form" => $form->createView()]; 
+        $param = [
+            "form" => $form->createView(),
+        ]; 
         return $this->render($vue,$param); 
     }
 
