@@ -5,20 +5,22 @@ namespace App\Controller;
 
 
 use App\Entity\Utilisateur;
-use App\Repository\UtilisateurRepository;
 use App\Form\UtilisateurType;
-use phpDocumentor\Reflection\Types\AbstractList;
-use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Form\FormBuilder;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UtilisateurRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use phpDocumentor\Reflection\Types\AbstractList;
+use Symfony\Component\Security\Core\User\UserInterface;
+use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -86,25 +88,44 @@ class UtilisateurController extends AbstractController
      * @Route("/new", name="utilisateur_nouveau2")
      */
 
-    public function newWithType(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) : Response
+    public function newWithType(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
-        $u = new Utilisateur(); 
-        $form = $this->createForm(UtilisateurType::class,$u);
-        $form->handleRequest($request); 
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $passwordHashed = $encoder->encodePassword($u,$u->getPassword()); 
-            $u->setPassword($passwordHashed); 
-            $manager->persist($u); 
-            $manager->flush();
-            return $this->redirectToRoute("utilisateur_index"); 
+        $u = new Utilisateur();
+        $form = $this->createForm(UtilisateurType::class, $u);
+        if ($connected = $this->getUser()) {
+            $rolesConnected = $connected->getRoles();
+
+            if (in_array("ROLE_ADMIN", $rolesConnected) or in_array("ROLE_SUPER_ADMIN", $rolesConnected))
+                $form->add("roles", ChoiceType::class, [
+                    'choices' => [
+                        'Utilisateur' => 'ROLE_USER',
+                        'Editeur' => 'ROLE_EDITOR',
+                        'Administrateur' => 'ROLE_ADMIN'
+                    ],
+                    'expanded' => true,
+                    'multiple' => true,
+                    'label' => 'Rôles'
+                ]);
         }
 
-        $vue = "utilisateur/new.html.twig"; 
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $passwordHashed = $encoder->encodePassword($u, $u->getPassword());
+            $u->setPassword($passwordHashed);
+            $manager->persist($u);
+            $manager->flush();
+            return $this->redirectToRoute("utilisateur_index");
+        }
+
+
+        $vue = "utilisateur/new.html.twig";
         $param = [
             "form" => $form->createView(),
-        ]; 
-        return $this->render($vue,$param); 
+            "session" => $connected,
+        ];
+        return $this->render($vue, $param);
     }
 
     /**
@@ -123,31 +144,48 @@ class UtilisateurController extends AbstractController
      * @Route("/{id}/edit", name="utilisateur_edit")
      */
 
-    public function edit(Request $request, EntityManagerInterface $manager, Utilisateur $u, UserPasswordEncoderInterface $encoder) : Response
+    public function edit(Request $request, EntityManagerInterface $manager, Utilisateur $u, UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(UtilisateurType::class, $u);
-        $form->handleRequest($request); 
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            $passwordHashed = $encoder->encodePassword($u,$u->getPassword()); 
+        if ($connected = $this->getUser()) {
+            $rolesConnected = $connected->getRoles();
+
+            if (in_array("ROLE_ADMIN", $rolesConnected) or in_array("ROLE_SUPER_ADMIN", $rolesConnected))
+                $form->add("roles", ChoiceType::class, [
+                    'choices' => [
+                        'Utilisateur' => 'ROLE_USER',
+                        'Editeur' => 'ROLE_EDITOR',
+                        'Administrateur' => 'ROLE_ADMIN'
+                    ],
+                    'expanded' => true,
+                    'multiple' => true,
+                    'label' => 'Rôles'
+                ]);
+        }
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $passwordHashed = $encoder->encodePassword($u, $u->getPassword());
             $u->setPassword($passwordHashed);
             $manager->flush();
-            return $this->redirectToRoute("utilisateur_index"); 
+            return $this->redirectToRoute("utilisateur_index");
         }
 
-        $vue = "utilisateur/new.html.twig"; 
-        $param = ["form" => $form->createView()]; 
-        return $this->render($vue,$param);
+        $vue = "utilisateur/new.html.twig";
+        $param = ["form" => $form->createView(),
+                  "session" => $connected,
+    ];
+        return $this->render($vue, $param);
     }
 
     /**
      * @Route("/{id}/delete", name="utilisateur_delete")
      */
 
-    public function delete(Request $request, Utilisateur $u, EntityManagerInterface $manager) : Response
+    public function delete(Request $request, Utilisateur $u, EntityManagerInterface $manager): Response
     {
-        $manager->remove($u); 
-        $manager->flush(); 
+        $manager->remove($u);
+        $manager->flush();
 
         return $this->redirectToRoute("utilisateur_index");
     }

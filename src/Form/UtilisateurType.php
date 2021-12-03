@@ -12,36 +12,24 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UtilisateurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('nom',TextType::class)
+         $builder
+            ->add('nom', TextType::class)
             ->add('prenom')
             ->add('photo')
             ->add('dateNaissance', DateType::class)
             ->add('login')
-            ->add('password', PasswordType::class,[
+            ->add('password', PasswordType::class, [
                 "required" => true,
             ])
             ->add('adresse')
-            ->add('email')
-            ->add("roles",ChoiceType::class,[
-                'choices' => [
-                  'Utilisateur' => 'ROLE_USER',
-                  'Editeur' => 'ROLE_EDITOR',
-                  'Administrateur' => 'ROLE_ADMIN'
-              ],
-              'expanded' => true,
-              'multiple' => true,
-              'label' => 'Rôles'
-          ])
-            ->add('Envoyer', SubmitType::class)
-        ;
-        
-        
+            ->add('email');
+        $builder->add('Envoyer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -49,5 +37,31 @@ class UtilisateurType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
         ]);
+    }
+
+    public function checkRoles(UserInterface $connected)
+    {
+        if ($connected) {
+            $roles = $connected->getRoles();
+            if (in_array("ROLE_ADMIN", $roles) or in_array("ROLE_SUPER_ADMIN", $roles))
+                return true;
+            return false;
+        }
+        return false;
+    }
+
+    public function addForAdmins(UserInterface $connected)
+    {
+        if ($this->checkRoles($connected))
+            $this->builder->add("roles", ChoiceType::class, [
+                'choices' => [
+                    'Utilisateur' => 'ROLE_USER',
+                    'Editeur' => 'ROLE_EDITOR',
+                    'Administrateur' => 'ROLE_ADMIN'
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label' => 'Rôles'
+            ]);
     }
 }
