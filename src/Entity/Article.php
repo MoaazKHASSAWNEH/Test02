@@ -34,7 +34,7 @@ class Article
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="text", length=500)
      */
     private $contenu;
 

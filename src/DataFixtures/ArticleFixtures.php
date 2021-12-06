@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use Faker; 
+use Faker;
 use APP\Entity\Auteur;
 use APP\Entity\Article;
 use App\Entity\Categorie;
@@ -26,61 +26,59 @@ class ArticleFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $table_auteurs = [];
         $faker = Faker\Factory::create('fr_FR');
-        for ($j=1; $j<=10; $j++)
-        {
+        for ($j = 1; $j <= 20; $j++) {
             $categorie = new Categorie();
-            $categorie->setTitre($faker->sentence())
-                ->setResume($faker->sentence(12,true))
-            ;
+            $categorie->setTitre($faker->sentence(6,true))
+                ->setResume($faker->sentence(12, true));
 
-            $manager->persist($categorie); 
+            $manager->persist($categorie);
             // creation de 7 auteur
-            if ($j<=7)
-            {
-                $auteur = new Auteur(); 
-                $auteur
-                    ->setNom($faker->lastName)
-                    ->setPrenom($faker->firstName)
-                    ->setPassword($this->encoder->encodePassword($auteur,"momomomo"))
-                    ->setEmail($faker->email)
-                ;
+            if ($j <= 15) {
+                for ($c = 1; $c <= 3; $c++) {
+                    $auteur = new Auteur();
+                    $auteur
+                        ->setNom($faker->lastName)
+                        ->setPrenom($faker->firstName)
+                        ->setPassword($this->encoder->encodePassword($auteur, "momomomo"))
+                        ->setEmail($faker->email);
 
-                $manager->persist($auteur);
+                    $manager->persist($auteur);
+                    $table_auteurs[]= $auteur;
+                }
             }
 
 
-            $articlesParCategorie = mt_rand(1,20); 
-            for ($i=1; $i<=$articlesParCategorie; $i++){
+            $articlesParCategorie = mt_rand(1, 200);
+            for ($i = 1; $i <= $articlesParCategorie; $i++) {
                 $article = new Article();
-                $article->setTitre($faker->sentence())
-                    ->setContenu($faker->sentence(40,true))
-                    ->setDate(new \DateTime())
-                    ->setResume($faker->sentence(12,true))
+                shuffle($table_auteurs);
+                $article->setTitre($faker->sentence(15,true))
+                    ->setContenu($faker->sentence(150, true))
+                    ->setDate($faker->dateTimeThisDecade)
+                    ->setResume($faker->sentence(20, true))
                     ->setImage("image-standard.jbeg")
                     ->setCategorie($categorie)
-                    ->setAuteur($auteur)
-                ;
-                
+                    ->setAuteur($table_auteurs[0]);
+
                 $manager->persist($article);
 
-                $commentairesParArticle = mt_rand(0,15); 
-                for ($c=1;$c<=$commentairesParArticle;$c++)
-                {
-                    $commentaire = new Commentaire(); 
-                    $commentaire 
+                $commentairesParArticle = mt_rand(0, 20);
+                for ($c = 1; $c <= $commentairesParArticle; $c++) {
+                    $commentaire = new Commentaire();
+                    $commentaire
                         ->setAuteur($faker->firstName . " " . $faker->lastName)
                         ->setEmail($faker->email)
                         ->setDate($faker->dateTimeThisMonth())
-                        ->setContenu($faker->sentence(20, true))
-                        ->setArticle($article)
-                    ;
-                    $manager->persist($commentaire); 
+                        ->setContenu($faker->sentence(40, true))
+                        ->setArticle($article);
+                    $manager->persist($commentaire);
                 }
             }
         }
 
-        
+
         $manager->flush();
     }
 }

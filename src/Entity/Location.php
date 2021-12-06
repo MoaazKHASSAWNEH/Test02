@@ -43,7 +43,7 @@ class Location
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="float")
      */
     private $valeur;
 
@@ -53,7 +53,7 @@ class Location
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="boolean")
      */
     private $accessibility;
 
