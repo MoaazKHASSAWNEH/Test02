@@ -2,19 +2,28 @@
 
 namespace App\DataFixtures;
 
-use APP\Entity\Article;
+use Faker; 
 use APP\Entity\Auteur;
-use APP\Entity\Commentaire;
+use APP\Entity\Article;
 use App\Entity\Categorie;
+use APP\Entity\Commentaire;
 use App\Repository\ArticleRepository;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Egulias\EmailValidator\Parser\Comment;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\MakerBundle\DependencyInjection\CompilerPass\SetDoctrineAnnotatedPrefixesPass;
-use Faker; 
 
 class ArticleFixtures extends Fixture
 {
+
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
@@ -33,6 +42,7 @@ class ArticleFixtures extends Fixture
                 $auteur
                     ->setNom($faker->lastName)
                     ->setPrenom($faker->firstName)
+                    ->setPassword($this->encoder->encodePassword($auteur,"momomomo"))
                     ->setEmail($faker->email)
                 ;
 

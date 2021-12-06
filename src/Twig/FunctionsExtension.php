@@ -2,12 +2,14 @@
 
 namespace App\Twig;
 
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
 class FunctionsExtension extends AbstractExtension
 {
+    
+
     public function getFilters(): array
     {
         return [
@@ -31,6 +33,7 @@ class FunctionsExtension extends AbstractExtension
         // $href = "{{ path('$route_name') }}";
         //id='$id' class='$class'
         //$value
+        
         return "<a href='$path' id='$id' class='$class'>$value</a>";
     }
 }
