@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block body %}
-<div class="article">
+<div class="article_full_screen">
     <h1 class="titre">{{ articles.titre }}</h1>
-    <p>Contenu : {{ articles.contenu }}</p>
-    <p>Categorie : <a href="{{ path('categorie_id', {'id':articles.categorie.id})}}">{{ articles.categorie.titre}}</a></p>
-    <p>Auteur : <a href="{{ path('auteur_id', {'id':articles.auteur.id})}}">{{ articles.auteur.nom }} {{ articles.auteur.prenom }}</a></p>
-</div>
+    <p class="contenu">Contenu : {{ articles.contenu }}</p>
+    <div class="pied">
+        <p><a class="btn" href="{{ path('categorie_id', {'id':articles.categorie.id})}}">{{ articles.categorie.titre}}</a></p>
+        <p><a class="btn" href="{{ path('auteur_id', {'id':articles.auteur.id})}}">{{ articles.auteur.nom }} {{ articles.auteur.prenom }}</a></p>
+    </div>
+    
     <h1>Ajouter un commentaire</h1>
 
     {{ form(form_commentaire) }}
@@ -23,6 +25,8 @@
             <p class="contenu">Contenu : {{ commentaire.contenu }}</p>
         </div>
     {% endfor %}
+</div>
+    
 
 
 {% endblock %}
