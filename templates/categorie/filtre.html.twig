@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Categories avec les articles {% endblock %}
+
+{% block body %}
+    <h1>Les categories qui ont des articles</h1>
+
+    <pre>
+    </pre>
+
+    {% for c in categories %}
+        <h2>{{ c.titre }}</h2>
+        
+    {% endfor %}
+{% endblock %}

@@ -54,10 +54,13 @@ class ArticleFixtures extends Fixture
             for ($i = 1; $i <= $articlesParCategorie; $i++) {
                 $article = new Article();
                 shuffle($table_auteurs);
+                $x = mt_rand(0,2); 
+                $statut = ($x > 0) ? $x : null;
                 $article->setTitre($faker->sentence(15,true))
                     ->setContenu($faker->sentence(150, true))
                     ->setDate($faker->dateTimeThisDecade)
                     ->setResume($faker->sentence(20, true))
+                    ->setStatut($statut)
                     ->setImage("image-standard.jbeg")
                     ->setCategorie($categorie)
                     ->setAuteur($table_auteurs[0]);

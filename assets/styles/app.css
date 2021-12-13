@@ -210,5 +210,6 @@ th {
 .box-links-v .new_link:hover {
     background-color: violet;
     transform: translateZ(200px);
+    flex-grow: 2;
 }
 

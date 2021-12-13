@@ -82,6 +82,11 @@ class Article
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $statut;
+
     public function __construct()
     {
         $this->commentairess = new ArrayCollection();
@@ -205,6 +210,18 @@ class Article
                 $commentaire->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatut(): ?int
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?int $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

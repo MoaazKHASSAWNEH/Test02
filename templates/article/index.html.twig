@@ -15,6 +15,7 @@
         <th>Catégorie</th>
         <th>Auteur</th>
         <th>RESUME</th>
+        <th>STATUT</th>
         <th><th>
         <th><th>
         {# <th>DATE</th> #}
@@ -28,6 +29,16 @@
         <td><a href="{{ path ('categorie_id', {'id':article.categorie.id})}}">{{article.categorie.titre }}</a></td>
         <td><a href="{{ path ('auteur_id', {'id':article.auteur.id})}}">{{ article.auteur.nom }} {{ article.auteur.prenom }}</a></td>
         <td> {{ article.resume }} </td>
+        <td>
+            {% if (article.statut == 1) %}
+                Non Publié
+            {% elseif (article.statut == 2) %}
+                Archivé
+            {% else %}
+                Publié
+            {% endif %}
+            
+        </td>
         <td><a href="{{ path('article_edit', {'id':article.id} ) }}">Modifier</a></td>
         <td><a href="{{ path('article_delete', {'id':article.id} ) }}">Supprimer</a></td>
         {# <td> {{ article.date | date("d/m/Y") }} </td> #}

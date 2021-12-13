@@ -47,4 +47,19 @@ class CategorieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findCategoriesWithArticles()
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb            
+            ->innerJoin("App\Entity\Article", "a", "WITH", "c = a.categorie")
+            ->select('c')
+            // ->where("a.statut = :value")
+            // ->setParameter("value",3)
+            ->orderBy("c.titre")
+        ;
+
+        return $qb->getQuery()->getResult(); 
+
+    }
 }

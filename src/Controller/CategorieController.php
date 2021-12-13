@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategoreReposetory;
-
+use App\Repository\CategorieRepository;
 use phpDocumentor\Reflection\Types\AbstractList;
 use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,6 +37,21 @@ class CategorieController extends AbstractController
         $vue="categorie/index.html.twig"; 
         $param=['categories'=>$categories,
         ]; 
+
+        return $this->render($vue,$param); 
+    }
+
+    /**
+     * @Route("/cats", name="cats_avec_articles", priority=1)
+     */
+
+    public function catsAvecArticles(CategorieRepository $c) {
+        $cats = $c->findCategoriesWithArticles();
+
+        $vue = "categorie/filtre.html.twig"; 
+        $param = [
+            "categories" => $cats, 
+        ];
 
         return $this->render($vue,$param); 
     }
