@@ -50,6 +50,24 @@ class UtilisateurController extends AbstractController
         return $this->render($vue, $param);
     }
 
+    /**
+     * @Route("/index/{statut}", name="utilisateur_index_statut")
+     */
+
+    public function indexStatut(UtilisateurRepository $u, $statut)
+    {
+        if ($statut == "nonpublie")
+            $utilisateurs = $u->findByUtilisateurStatut(1);
+        else if ($statut == "archive")
+            $utilisateurs = $u->findByUtilisateurStatut(2);
+        else 
+            return $this->redirectToRoute("utilisateur_index");
+
+        return $this->render("Utilisateur/index.html.twig",[
+            "utilisateurs" => $utilisateurs,
+        ]);
+    }
+
     // /**
     //  * @Route("/new", name="utilisateur_nouveau")
     //  */
@@ -172,9 +190,10 @@ class UtilisateurController extends AbstractController
         }
 
         $vue = "utilisateur/new.html.twig";
-        $param = ["form" => $form->createView(),
-                  "session" => $connected,
-    ];
+        $param = [
+            "form" => $form->createView(),
+            "session" => $connected,
+        ];
         return $this->render($vue, $param);
     }
 

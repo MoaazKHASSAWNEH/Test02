@@ -185,4 +185,30 @@ th {
     min-width: 7%;
 }
 
+/* Style de box vertical */
+
+.box-links-v {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: 10px auto;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.box-links-v .new_link {
+    width: auto;
+    flex-grow: 1;
+    margin:10px;
+    background-color: mediumblue;
+    border: 1px yellow solid;
+    perspective: 500px;
+    transform: translateZ(0);
+    transition: .5s;
+}
+
+.box-links-v .new_link:hover {
+    background-color: violet;
+    transform: translateZ(200px);
+}
 

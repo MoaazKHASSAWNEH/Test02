@@ -13,12 +13,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class UtilisateurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-         $builder
+        $builder
+            ->add("civilite",ChoiceType::class, [
+                "choices" => [
+                    "M." => "M.",
+                    "Mme" => "Mme",
+                ],
+                "expanded" => true,
+                "multiple" => false,
+            ])
             ->add('nom', TextType::class)
             ->add('prenom')
             ->add('photo')

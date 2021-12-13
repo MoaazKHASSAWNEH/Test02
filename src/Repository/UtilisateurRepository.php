@@ -47,4 +47,15 @@ class UtilisateurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByUtilisateurStatut($int)
+    {
+        $qb = $this->createQueryBuilder("u");
+        $qb->select("u")
+            ->where('u.statut = :statut')
+            ->setParameter("statut", $int)
+            ->orderBy("u.nom");
+               
+        return $qb->getQuery()->getResult();
+    }
 }
