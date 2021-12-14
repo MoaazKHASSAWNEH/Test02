@@ -33,7 +33,6 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 /**
  * @Route("/article")
  */
-
 class ArticleController extends AbstractController
 {
 
