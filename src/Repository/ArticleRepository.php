@@ -48,5 +48,19 @@ class ArticleRepository extends ServiceEntityRepository
     }
     */
 
+    public function rechercheTitre($titre) {
+        return $qb = $this->createQueryBuilder('a')
+                        ->innerJoin("App\Entity\Categorie","c","WITH","c=a.categorie")
+                        ->where("a.titre like :titre")
+                        ->orWhere("c.titre like :categorie")
+                        ->setParameter("titre",'%'. $titre . '%')
+                        ->setParameter("categorie", '%' . $titre . '%')
+                        ->getQuery()
+                        ->getResult()
+                    ;
+                        
+
+    }
+
     
 }

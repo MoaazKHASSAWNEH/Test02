@@ -7,6 +7,7 @@
 {% block body %}
 <div class="article_full_screen">
     <h1 class="titre">{{ articles.titre }}</h1>
+    <p><img src="{{ vich_uploader_asset(articles, 'imageFile')| imagine_filter('medium') }}" /></p>
     <p class="contenu">Contenu : {{ articles.contenu }}</p>
     <div class="pied">
         <p><a class="btn" href="{{ path('categorie_id', {'id':articles.categorie.id})}}">{{ articles.categorie.titre}}</a></p>

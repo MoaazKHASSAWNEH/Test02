@@ -7,6 +7,7 @@
 <h1>Articles index</h1>
 {# <p><a href="{{ path('article_nouvelarticle') }}" class="new_link">Créer un nouvel article</a></p> #}
 <p>{{ make_link('/article/nouvelarticle','Nouvel article','new_link') }}</p>
+{{ form(ser_form) }}
 {{ knp_pagination_render(articles) }}
 <table>
     <tr>
@@ -25,7 +26,7 @@
     <tr>
         
         {# <td> {{ article.id }} </td> #}
-        <td><a href="{{ path('article_id', {'id':article.id} ) }}">{{ article.titre }} </a></td>
+        <td><a href="{{ path('article_id', {'slug':article.slug} ) }}">{{ article.titre }} </a></td>
         <td><a href="{{ path ('categorie_id', {'id':article.categorie.id})}}">{{article.categorie.titre }}</a></td>
         <td><a href="{{ path ('auteur_id', {'id':article.auteur.id})}}">{{ article.auteur.nom }} {{ article.auteur.prenom }}</a></td>
         <td> {{ article.resume }} </td>
@@ -46,8 +47,11 @@
     </tr>
     
     {% endfor %}
-    
 </table>
 
 {{ knp_pagination_render(articles) }}
+
 {% endblock %}
+
+
+    

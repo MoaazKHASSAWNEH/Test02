@@ -8,6 +8,7 @@
 {% block body %}
 	{% include "menu_user.html.twig" %}
 	<h1>Utilisateur index</h1>
+	<p>{{ form(ser_form) }}</p>
 	<p class="box-links-v">
 		{{ make_link("/utilisateur/","Index","new_link") }}
 		{{ make_link("/utilisateur/index/archive","Archivés","new_link") }}

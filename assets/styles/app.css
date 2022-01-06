@@ -164,6 +164,8 @@ th {
     text-align: justify;
 }
 
+/* Style de la pagination */
+
 .pagination {
     display: flex;
     width: 30%;

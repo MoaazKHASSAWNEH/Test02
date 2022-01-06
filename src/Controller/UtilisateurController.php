@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-
-
+use App\Entity\Serch;
 use App\Entity\Utilisateur;
+use App\Form\SerchType;
 use App\Form\UtilisateurType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
@@ -35,16 +35,25 @@ class UtilisateurController extends AbstractController
      * @Route("/", name="utilisateur_index")
      */
 
-    public function index()
+    public function index(Request $request)
     {
         $repo = $this->getDoctrine()
             ->getRepository(Utilisateur::class);
         $utilisateurs = $repo->findAll();
 
+        $ser = new Serch(); 
+        $serForm = $this->createForm(SerchType::class, $ser);
+        $serForm->add("Rechercher",SubmitType::class);
+        $serForm->handleRequest($request);
+
+        if ($serForm->isSubmitted() && $serForm->isValid()) {
+            // do sumthing
+        }
 
         $vue = "utilisateur/index.html.twig";
         $param = [
             'utilisateurs' => $utilisateurs,
+            "ser_form" => $serForm->createView(),        
         ];
 
         return $this->render($vue, $param);
@@ -62,6 +71,7 @@ class UtilisateurController extends AbstractController
             $utilisateurs = $u->findByUtilisateurStatut(2);
         else 
             return $this->redirectToRoute("utilisateur_index");
+        
 
         return $this->render("Utilisateur/index.html.twig",[
             "utilisateurs" => $utilisateurs,

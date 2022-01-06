@@ -42,7 +42,7 @@ class CategorieController extends AbstractController
     }
 
     /**
-     * @Route("/cats", name="cats_avec_articles", priority=1)
+     * @Route("/cats", name="cats_avec_articles")
      */
 
     public function catsAvecArticles(CategorieRepository $c) {

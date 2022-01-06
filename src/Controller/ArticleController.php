@@ -9,8 +9,10 @@ use App\Entity\Categorie;
 use App\Form\ArticleType;
 
 use App\Entity\Commentaire;
+use App\Entity\Serch;
 use App\Form\CategorieType;
 use App\Form\CommentaireType;
+use App\Form\SerchType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,22 +39,31 @@ class ArticleController extends AbstractController
 {
 
     /**
-     * @Route("/", name="article_index")
+     * @Route("/", name="article_index", methods={"GET","POST"})
      */
 
-    public function index(Request $request, PaginatorInterface $paginator) 
-    {
-        $repo = $this->getDoctrine()
-            ->getRepository(Article::class);
-        
-        $donnees = $repo->findAll();
-        
-        $articles = $paginator->paginate($donnees,$request->query->getInt("page",1),10); 
+    public function index(Request $request, PaginatorInterface $paginator, ArticleRepository $artRepo) 
+    {    
+        $ser = new Serch(); 
+        $serForm = $this->createForm(SerchType::class, $ser) 
+            ->add("Rechercher",SubmitType::class); 
+        $serForm ->handleRequest($request);
+        if ($serForm->isSubmitted() && $serForm->isValid())
+        {
+            $data = $artRepo->rechercheTitre($serForm["titre"]->getData());
+            $articles = $paginator->paginate($data,$request->query->getInt("page",1),25); 
+        } else {
+            $data = $artRepo->findAll();
+            $articles = $paginator->paginate($data,$request->query->getInt("page",1),25);
+        }
 
+        
 
         $path = "article/index.html.twig";
         $param = [
-            'articles' => $articles, 
+            'articles' => $articles,
+            'ser_form' => $serForm->createView(),
+            'request' => $request,  
         ];
 
         return $this->render($path, $param);
@@ -65,7 +76,7 @@ class ArticleController extends AbstractController
     // public function affichage($id)
     // {
     //     $repo = $this->getDoctrine()->getRepository(Article::class); 
-    //     $article = $repo->find($id); 
+    //     $article = $repo->   find($id); 
 
     //     $path = "article/affichage.html.twig";
     //     $param = [
@@ -132,7 +143,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_id",  methods={"GET","POST"})
+     * @Route("/{slug}", name="article_id",  methods={"GET","POST"})
      */
 
     public function affichage(Article $articles, Request $request,EntityManagerInterface $manager): Response
