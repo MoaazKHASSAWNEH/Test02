@@ -2,17 +2,18 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Utilisateur;
-use App\Repository\UtilisateurRepository;
-
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Faker;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
+use App\Entity\Utilisateur;
 
-class UtilisateurFixtures extends Fixture
+use Doctrine\Persistence\ObjectManager;
+use App\Repository\UtilisateurRepository;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+class UtilisateurFixtures extends Fixture implements FixtureGroupInterface
 {
 
     private $encoder;
@@ -33,41 +34,44 @@ class UtilisateurFixtures extends Fixture
             ->setDateNaissance(new \DateTime("29-03-1995"))
             ->setEmail("momo@admin.com")
             ->setLogin("momo.95")
-            ->setPassword($this->encoder->encodePassword($sup_admin,"momomomo"))
+            ->setPassword($this->encoder->encodePassword($sup_admin, "momomomo"))
             ->setAdresse("3 Place d'Angleterre 54500 Vandoeuvre-les-Nancy")
             ->setPhoto("momo.jpg")
-            ->setRoles(["ROLE_SUPER_ADMIN","ROLE_ADMIN","ROLE_AUTEUR"])
-            ->setStatut(null)
-        ;
+            ->setRoles(["ROLE_SUPER_ADMIN", "ROLE_ADMIN", "ROLE_AUTEUR"])
+            ->setStatut(null);
         $manager->persist($sup_admin);
 
         //Creation des utilisateurs sur le site
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 1; $i <= 199; $i++) {
+        for ($i = 1; $i <= 2000; $i++) {
             $utilisateur = new Utilisateur();
-            $civilite = (mt_rand(0,1) == 0) ? "Mme" : "M.";
+            $civilite = (mt_rand(0, 1) == 0) ? "Mme" : "M.";
             $prenom = ($civilite == "Mme") ? $faker->firstNameFemale : $faker->firstNameMale;
-            $x = mt_rand(0,2); 
-            $statut = null; 
-            if ($x>0)
-                $statut = $x; 
-            
+            $x = mt_rand(0, 2);
+            $statut = null;
+            if ($x > 0)
+                $statut = $x;
+
             $utilisateur->setNom($faker->lastName)
-                        ->setCivilite($civilite)
-                        ->setPrenom($prenom)
-                        ->setLogin($faker->userName)
-                        ->setEmail($faker->email)
-                        ->setPassword($this->encoder->encodePassword($utilisateur,"momomomo"))
-                        ->setAdresse($faker->address)
-                        ->setDateNaissance($faker->dateTimeBetween())
-                        ->setPhoto("user.jpg")
-                        ->setStatut($statut)
-                    ;
+                ->setCivilite($civilite)
+                ->setPrenom($prenom)
+                ->setLogin($faker->userName)
+                ->setEmail($faker->email)
+                ->setPassword($this->encoder->encodePassword($utilisateur, "momomomo"))
+                ->setAdresse($faker->address)
+                ->setDateNaissance($faker->dateTimeBetween())
+                ->setPhoto("user.jpg")
+                ->setStatut($statut);
 
             $manager->persist($utilisateur);
         }
 
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group1'];
     }
 }

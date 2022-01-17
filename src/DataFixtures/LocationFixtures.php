@@ -2,19 +2,20 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Location;
-
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Faker;
 
-class LocationFixtures extends Fixture
+use App\Entity\Location;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+
+class LocationFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
         $status = ["En core", "Terminé", "Demandé"];
         $faker = Faker\Factory::create('fr_FR');
-        for ($i=1;$i<=300;$i++) {
+        for ($i=1;$i<=1000;$i++) {
             // $x = mt_rand(0,1);
             // if ($x == 0) $acc = false; else $acc=true;
             shuffle($status);
@@ -36,5 +37,10 @@ class LocationFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group2'];
     }
 }

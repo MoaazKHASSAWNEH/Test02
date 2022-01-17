@@ -11,6 +11,8 @@ fos_ck_editor:
         # Nom de la Configuration
         main_config:
         # Les Outils à utiliser
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
             toolbar:
                 - {
                     name: "styles",
@@ -51,3 +53,4 @@ fos_ck_editor:
                             "Source",
                         ],
                 }
+            
