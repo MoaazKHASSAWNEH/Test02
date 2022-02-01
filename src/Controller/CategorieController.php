@@ -152,4 +152,5 @@ class CategorieController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute("categorie_index");    
     }
+    
 }
